@@ -5,8 +5,9 @@ from .forms import MovieForm
 from moviesapp.models import Movies
 
 # Create your views here.
-ob=Movies.objects.all()
+
 def index(request):
+    ob = Movies.objects.all()
     return render(request,"index.html",{'movie_list':ob})
 def detail(request,movie_id):
     movie=Movies.objects.get(id=movie_id)
@@ -28,8 +29,8 @@ def update(request,id):
         return redirect('/')
     return render(request,"edit.html",{'form':form,'movie':movie})
 def delete(request,id):
-   if request.method == 'POST':
+    if request.method == 'POST':
         movie=Movies.objects.get(id=id)
         movie.delete()
         return redirect('/')
-   return render(request,"delete.html")
+    return render(request,"delete.html")
