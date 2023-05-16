@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
 from .forms import MovieForm
 from moviesapp.models import Movies
 
@@ -16,11 +15,14 @@ def add(request):
     if request.method=="POST":
         name=request.POST.get('name')
         desc = request.POST.get('desc')
-        year = request.POST.get('year')
+       	year = request.POST.get('year')
         img = request.FILES['img']
         movie = Movies(name=name,desc=desc,year=year,img=img)
         movie.save()
+        return redirect('/')
     return render(request,"add.html")
+
+	
 def update(request,id):
     movie=Movies.objects.get(id=id)
     form=MovieForm(request.POST or None,request.FILES,instance=movie)
